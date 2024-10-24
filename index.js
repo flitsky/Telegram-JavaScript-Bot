@@ -26,7 +26,8 @@ async function start() {
     .filter((file) => file.endsWith(".js"));
 
   for (const file of commandFiles) {
-    const command = await import(path.join(commandFilesDir, file));
+    const commandPath = path.join(commandFilesDir, file);
+    const command = await import(`file://${commandPath}`);
     bot.command(command.default.name, command.default.handler);
 
     if (command.default.alias) {
